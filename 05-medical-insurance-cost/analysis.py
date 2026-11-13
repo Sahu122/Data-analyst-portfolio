@@ -1,39 +1,43 @@
 import numpy as np
 import pandas as pd
-import seaborn as sns
-import  matplotlib.pyplot as plt
 
+# ---------- Step 1: Load and check the data ----------
 df = pd.read_excel("insurance.xlsx")
+
 print(df.head())
+print("Shape:", df.shape)
+df.info()
+print(df.describe())
+print("Missing values:\n", df.isnull().sum())
+print("Duplicates:", df.duplicated().sum())
 
-# print("shape:",df.shape)
-# print(df.isnull().sum())
-# print("Duplicates:", df.duplicated().sum())
-
+# ---------- Step 2: Clean the data ----------
 df = df.drop_duplicates()
-# print("Shape after removing duplicates:",df.shape)
+print("Shape after removing duplicates:", df.shape)
 
+# ---------- Step 3: Create new columns ----------
 df['age_group'] = pd.cut(
     df['age'],
-    bins=[17,25,35,45,55,64],
-    labels=['18-25','26-35','36-45','46-55','56-64']
+    bins=[17, 25, 35, 45, 55, 64],
+    labels=['18-25', '26-35', '36-45', '46-55', '56-64']
 )
 
 df['bmi_category'] = pd.cut(
     df['bmi'],
-    bins=[0,18.5,25,30,100],
-    labels=['Underweight','Normal','Overweight','Obese'],
+    bins=[0, 18.5, 25, 30, 100],
+    labels=['Underweight', 'Normal', 'Overweight', 'Obese'],
     right=False
 )
 
-df['has_children'] = np.where(df['children']>0,'Yes','No')
+df['has_children'] = np.where(df['children'] > 0, 'Yes', 'No')
+df['smoker_flag'] = np.where(df['smoker'] == 'yes', 1, 0)
 
 print(df.head())
 print(df['age_group'].value_counts())
 print(df['bmi_category'].value_counts())
 print(df['has_children'].value_counts())
 
-
+# ---------- Step 4: Analysis ----------
 print("\n1. Smoker vs Non-smoker")
 print(df.groupby('smoker')['charges'].mean().round(2))
 
@@ -52,13 +56,9 @@ print(df.groupby('sex')['charges'].mean().round(2))
 print("\n6. Smoker + BMI Category")
 print(df.groupby(['smoker', 'bmi_category'], observed=True)['charges'].mean().round(2))
 
-print("\n7. Correlation")
+print("\n7. Correlation with charges")
 print(df.corr(numeric_only=True)['charges'].round(2))
 
-df['smoker_flag'] = np.where(df['smoker'] == 'yes', 1, 0)
-print(df.corr(numeric_only=True)['charges'].round(2))
-
-# # export (sabse last)
-# df.to_excel('insurance_clean.xlsx', index=False)
-df = df.info()
-print(df)
+# ---------- Step 5: Export clean data for Power BI ----------
+df.to_excel('insurance_clean.xlsx', index=False)
+print("\nSaved insurance_clean.xlsx")

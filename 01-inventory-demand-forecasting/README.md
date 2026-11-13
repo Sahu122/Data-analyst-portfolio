@@ -1,5 +1,4 @@
-# Inventory & Demand Forecasting (Supply Chain) - Excel
-  # StockPilot: Inventory & Demand Forecasting (Supply Chain) - Excel
+# StockPilot: Inventory & Demand Forecasting (Supply Chain) - Excel
 
 StockPilot is an Excel planning tool for an online seller that stores products in Amazon warehouses (FBA). It answers four daily questions:
 
@@ -25,7 +24,7 @@ Before this tool, these decisions were made manually product by product. StockPi
 
 ---
 
-## 2. Data used (12 input sheets)
+## 2. Data used (11 input sheets)
 
 | Sheet | What it contains |
 |---|---|

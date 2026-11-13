@@ -59,8 +59,8 @@ All queries are in [`bank_churn_analysis.sql`](bank_churn_analysis.sql).
 
 ## 4. Steps
 
-1. Created a database and a `customers` table in MySQL
-2. Imported the CSV file with the Table Data Import Wizard
+1. Created a database (`bank_churn`) in MySQL
+2. Imported the CSV file with the Table Data Import Wizard as the table `bank customer churn prediction`
 3. Checked the row count (10,000) and missing values (none)
 4. Answered 10 business questions with SQL
 5. Built a call list of high-risk customers for the retention team
